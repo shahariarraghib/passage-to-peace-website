@@ -1,0 +1,30 @@
+.slide-style img {
+    width: 100%;
+    height: 800px;
+    object-fit: cover;
+    background-size: cover;
+
+}
+
+a {
+
+    text-decoration: none;
+
+}
+
+.login-img-style {
+    height: 35px;
+    margin-left: 10px;
+}
+
+/* .slide-style img {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-transition: .3s ease-in-out;
+    transition: .3s ease-in-out;
+}
+
+.slide-style:hover img {
+    -webkit-transform: scale(1.3);
+    transform: scale(1.3);
+} */
