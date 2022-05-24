@@ -1,20 +1,16 @@
 
 Project Live preivew link ► https://passage-to-peace.firebaseapp.com/
 
-he Package uses in this project:
+The Package uses in this project:
 
-Mongodb
-crud operation
-hiroku cloud application platform
-Material Ui
-React Router
-Firebase Authentication and hosting
-Emotion core
-Material UI carousel
-@mui/lab
-date-fns
-React swal alert
-React Google Button
+hiroku cloud application platform\
+React Material Ui\
+React Router\
+Firebase Authentication and hosting\
+Emotion core\
+Material UI carousel\
+@mui/lab\
+
 
 
 https://user-images.githubusercontent.com/58640846/169889609-ec9d882c-b8eb-48d9-bc0d-8b38f4cb3994.mp4
