@@ -9,7 +9,7 @@ React Router\
 Firebase Authentication and hosting\
 Emotion core\
 Material UI carousel\
-@mui/lab\
+@mui/lab
 
 
 
