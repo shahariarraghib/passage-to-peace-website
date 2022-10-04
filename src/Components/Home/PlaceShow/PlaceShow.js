@@ -1,58 +1,28 @@
-import React from 'react';
-import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Tooltip, Typography } from '@mui/material';
-
-
+import React from "react";
 
 const PlaceShow = ({ PlaceData }) => {
-    const { _id, name, price, description, img } = PlaceData;
+  const { _id, name, price, description, img } = PlaceData;
 
+  return (
+    <div class="card card-compact w-96 h-100 bg-base-100 shadow-xl">
+      <figure>
+        <img src={img} alt="place" style={{ height: 300, width: "100%" }} />
+      </figure>
+      <div class="card-body">
+        <h2 class="card-title text-[#FFC107]">{name}</h2>
+        <p class="text-xl font-black">${price}</p>
+        <p class="text-gray-400 text-justify">{description}</p>
 
-    return (
-
-        <>
-
-            <div >
-
-
-                <Card sx={{ maxWidth: 550, height: 500 }} className="shadow p-3 mb-5 bg-body rounded">
-                    <CardActionArea>
-                        <CardMedia
-                            component="img"
-                            height="140"
-                            image={img}
-                            alt="green iguana"
-                        />
-                        <CardContent>
-                            <Typography gutterBottom variant="h5" component="div" className='fw-bolder' >
-                                {name}
-                            </Typography>
-
-                            <Typography gutterBottom variant="h5" component="div" className='text-danger'>
-                                <span className='fs-2'>$</span>{price}
-                            </Typography>
-                            <Typography variant="body2" color="text.secondary">
-                                {description}
-                            </Typography>
-                        </CardContent>
-                    </CardActionArea>
-                    <CardActions >
-
-                        <div >
-                            <Tooltip title="Add" >
-                                <a href={`/booking/${_id}`}>
-                                    <Button size="small" color="success" variant="contained" >
-                                        Booking
-                                    </Button>
-                                </a>
-                            </Tooltip>
-                        </div>
-
-                    </CardActions>
-                </Card>
-
-            </div>
-        </>
-    );
+        <div class="card-actions justify-end">
+          <a href={`/booking/${_id}`}>
+            <button class="btn btn-xs sm:btn-sm md:btn-md lg:btn-sm btn-warning ">
+              Booking Now
+            </button>
+          </a>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default PlaceShow;

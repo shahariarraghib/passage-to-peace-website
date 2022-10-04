@@ -1,0 +1,111 @@
+.RecomendedHotelHr {
+  background-color: #ffc107;
+  border: 2px solid #ffc107;
+}
+
+.wrapperRecomended {
+  width: 100%;
+
+  /* background: #3498db; */
+  /* display: flex; */
+}
+
+.cardRecomended {
+  width: 200px;
+  height: 350px;
+  /* background: url(https://images.unsplash.com/photo-1510258791301-4d7ac469cc46?ixlib=rb-0.3.5&s=e7fb8ddadf15658efc6a99bd5fd6482b&dpr=1&auto=format&fit=crop&w=1000&q=80&cs=tinysrgb)
+    no-repeat center/cover; */
+  margin: auto;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+.cardRecomended:hover .fonRecomended {
+  opacity: 0;
+}
+.cardRecomended:hover .textRecomended {
+  height: 10%;
+  padding: 10px 0 0;
+}
+.cardRecomended:hover .textRecomended h2 {
+  margin-bottom: 0;
+}
+.cardRecomended:hover .textRecomended p {
+  opacity: 0;
+}
+.cardRecomended:hover .btnRecomended {
+  transform: scale(1);
+}
+
+.fonRecomended {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  opacity: 0.3;
+  z-index: 2;
+  transition: opacity 0.25s;
+}
+
+.textRecomended {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  height: 60%;
+  width: 100%;
+  text-align: center;
+  padding: 40px 0 0;
+  z-index: 4;
+  transition: height 0.25s, padding 0.25s;
+}
+.textRecomended h2 {
+  text-transform: uppercase;
+  color: #3498db;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+  transition: margin-bottom 0.25s;
+}
+.textRecomended p {
+  line-height: 20px;
+  margin: 0 10px;
+  color: gray;
+  z-index: 5;
+  transition: opacity 0.25s;
+}
+.textRecomended .triangleRecomended {
+  width: 100%;
+  height: 50px;
+  background: #fff;
+  z-index: 9;
+  transform: matrix(1.01, -0.3, 0, 2, -1, 10);
+  z-index: 3;
+}
+
+.btnRecomended {
+  position: absolute;
+  top: calc(50% - 20px);
+  left: calc(50% - 40px);
+  margin: auto;
+  width: 80px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border: 2px solid #fff;
+  color: #fff;
+  transition: transform 0.15s, background 0.25s, color 0.25s, border-color 0.25s;
+  z-index: 4;
+  transform: scale(0);
+  cursor: pointer;
+}
+.btnRecomended:hover {
+  background: #ffc107;
+  border-color: #ffc107;
+}

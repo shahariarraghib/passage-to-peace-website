@@ -1,128 +1,209 @@
-import React, { useEffect, useState } from 'react';
-
+import React, { useEffect, useState } from "react";
 
 import { useForm } from "react-hook-form";
-import axios from 'axios';
-import { Button, Paper, Stack, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
-import { Table } from 'react-bootstrap';
-import DeleteIcon from '@mui/icons-material/Delete';
+import axios from "axios";
+import { Button, Stack } from "@mui/material";
+
+import DeleteIcon from "@mui/icons-material/Delete";
+import Swal from "sweetalert2";
+import "./Addplace.css";
 
 const AddPlace = () => {
-    const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState([]);
 
+  const { register, handleSubmit, reset } = useForm();
 
-    const { register, handleSubmit, reset } = useForm();
-
-    const onSubmit = data => {
-        console.log(data);
-        axios.post('https://passage-to-peace-23-05-2022.herokuapp.com/users', data)
-            .then(res => {
-                console.log(res)
-                if (res.data.insertedId) {
-                    alert("Add SuccessFully")
-                    reset();
-                }
-            })
-    }
-
-
-    useEffect(() => {
-        fetch('https://passage-to-peace-23-05-2022.herokuapp.com/users')
-            .then(res => res.json())
-            .then(data => setUsers(data))
-    }, [])
-
-
-
-    // Delete an items
-    const handleDeleteUser = id => {
-        const proceed = window.confirm("Are you sure, You want to delete ?");
-        if (proceed) {
-            const url = `https://passage-to-peace-23-05-2022.herokuapp.com/users/${id}`
-            fetch(url, {
-                method: 'DELETE'
-            })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.deletedCount > 0) {
-                        alert('Delete SuccessFullu')
-                        const remainingUsers = users.filter(user => user._id !== id)
-                        setUsers(remainingUsers);
-                    }
-                })
+  const onSubmit = (data) => {
+    console.log(data);
+    axios
+      .post("https://passage-to-peace-server-vercel.vercel.app/users", data)
+      .then((res) => {
+        console.log(res);
+        if (res.data.insertedId) {
+          Swal.fire("Package Add Succssfully");
+          reset();
         }
+      });
+  };
+
+  useEffect(() => {
+    fetch("https://passage-to-peace-server-vercel.vercel.app/users")
+      .then((res) => res.json())
+      .then((data) => setUsers(data));
+  }, []);
+
+  // Delete an items
+  const handleDeleteUser = (id) => {
+    const proceed = window.confirm("Are you sure, You want to delete ?");
+    if (proceed) {
+      const url = `https://passage-to-peace-server-vercel.vercel.app/users/${id}`;
+      fetch(url, {
+        method: "DELETE",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.deletedCount > 0) {
+            Swal.fire("Delete Succssfully");
+            const remainingUsers = users.filter((user) => user._id !== id);
+            setUsers(remainingUsers);
+          }
+        });
     }
+  };
 
+  return (
+    <>
+      <div>
+        <div>
+          <section class="input-content mt-12">
+            <h2>Here You can Add Package</h2>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <div class="input-content-wrap">
+                <dl class="inputbox">
+                  <dt class="inputbox-title">Place Name</dt>
+                  <dd class="inputbox-content">
+                    <input
+                      id="input0"
+                      type="text"
+                      {...register("name", { required: true, maxLength: 200 })}
+                    />
+                    <label for="input0">Place Name</label>
+                    <span class="underline"></span>
+                  </dd>
+                </dl>
 
-    return (
-        <>
-            <div>
+                <dl class="inputbox">
+                  <dt class="inputbox-title">Package Description</dt>
+                  <dd class="inputbox-content">
+                    <input
+                      id="input0"
+                      type="text"
+                      {...register("description", {
+                        required: true,
+                        maxLength: 500,
+                      })}
+                    />
+                    <label for="input0">Package Description</label>
+                    <span class="underline"></span>
+                  </dd>
+                </dl>
 
-                <h1 className='d-flex justify-content-center p-5'>Total Package Number:{users.length}</h1>
-                <hr />
-                <h4 className='d-flex justify-content-center p-2'>Here You can Add Package</h4>
-                <form onSubmit={handleSubmit(onSubmit)} className='d-flex justify-content-center p-5'>
-                    <input {...register("name", { required: true, maxLength: 200 })} placeholder="Place Name" />
-                    <textarea {...register("description")} placeholder="Package Description" />
-                    <input type="number" {...register("price")} placeholder="Price" />
-                    <input {...register("img")} placeholder="Image Url" />
+                <dl class="inputbox">
+                  <dt class="inputbox-title">Price</dt>
+                  <dd class="inputbox-content">
+                    <input
+                      id="input0"
+                      type="Number"
+                      {...register("price", { required: true, maxLength: 200 })}
+                    />
+                    <label for="input0">Price</label>
+                    <span class="underline"></span>
+                  </dd>
+                </dl>
+
+                <dl class="inputbox">
+                  <dt class="inputbox-title">Image Url</dt>
+                  <dd class="inputbox-content">
+                    <input
+                      id="input0"
+                      type="text"
+                      {...register("img", { required: true, maxLength: 2000 })}
+                    />
+                    <label for="input0">Image Url</label>
+                    <span class="underline"></span>
+                  </dd>
+                </dl>
+
+                <div class="btns">
+                  <button class="btn btn-confirm">
                     <input type="submit" />
-                </form>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </section>
+        </div>
+        <hr />
 
-                <hr />
+        <div class="overflow-x-auto w-full">
+          <table class="table w-full">
+            {/* <!-- head --> */}
+            <thead>
+              <tr>
+                <th>
+                  <label>
+                    <input type="checkbox" class="checkbox" />
+                  </label>
+                </th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>price</th>
+                <th>img Url</th>
+                <th>Delete</th>
+                <th>Update</th>
+              </tr>
+            </thead>
+            <tbody>
+              {/* <!-- row 1 --> */}
+              {users.map((user) => (
+                <tr>
+                  <th>
+                    <label>
+                      <input type="checkbox" class="checkbox" />
+                    </label>
+                  </th>
+                  <td>
+                    <div class="flex items-center space-x-3">
+                      <div class="avatar">
+                        <div class="mask mask-squircle  h-12">
+                          <img
+                            src={user.img}
+                            alt="Avatar Tailwind CSS Component"
+                          />
+                        </div>
+                      </div>
+                      <div>
+                        <div class="font-bold">{user.name}</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="w-3/4">
+                    <p class="whitespace-normal">{user.description}</p>
+                    <br />
+                  </td>
+                  <td>{user.price}</td>
+                  <td class="w-3/4">
+                    <p class="whitespace-normal">{user.img}</p>
+                  </td>
 
-
-
-                <TableContainer component={Paper}>
-                    <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>Package Id</TableCell>
-                                <TableCell align="left">name</TableCell>
-                                <TableCell align="left">Description</TableCell>
-                                <TableCell align="left">price</TableCell>
-                                <TableCell align="left">img Url</TableCell>
-                                <TableCell align="left">Image</TableCell>
-                                <TableCell align="left">Delete Button</TableCell>
-                                <TableCell align="left">Update Button</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {users.map((user) => (
-                                <TableRow
-                                    key={user._id}
-                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                >
-                                    <TableCell component="th" scope="row">
-                                        {user._id}
-                                    </TableCell>
-                                    <TableCell align="left">{user.name}</TableCell>
-                                    <TableCell align="left">{user.description}</TableCell>
-                                    <TableCell align="left">{user.price}</TableCell>
-                                    <TableCell align="left">{user.img}</TableCell>
-                                    <TableCell align="left">{<img src={user.img} alt="" height={100} width={100} />}</TableCell>
-                                    <TableCell align="left"> <a href={`/update/${user._id}`}>
-                                        <Stack direction="row" spacing={2}>
-                                            <Button variant="contained" color="success">Update</Button></Stack></a>
-
-                                    </TableCell>
-                                    <TableCell align="right">
-                                        <Stack direction="row" spacing={2}>
-                                            <Button onClick={() => handleDeleteUser(user._id)} variant="outlined" color="error" startIcon={<DeleteIcon />}>
-                                                Delete
-                                            </Button>
-
-                                        </Stack>
-
-                                    </TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-            </div>
-        </>
-    );
+                  <th>
+                    {" "}
+                    <Button
+                      onClick={() => handleDeleteUser(user._id)}
+                      variant="outlined"
+                      color="error"
+                      startIcon={<DeleteIcon />}
+                    >
+                      Delete
+                    </Button>
+                  </th>
+                  <th>
+                    <a href={`/update/${user._id}`}>
+                      <Stack direction="row" spacing={2}>
+                        <Button variant="contained" color="success">
+                          Update
+                        </Button>
+                      </Stack>
+                    </a>
+                  </th>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </>
+  );
 };
 
 export default AddPlace;

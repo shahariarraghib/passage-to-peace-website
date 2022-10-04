@@ -1,304 +1,190 @@
-import { AppBar, Box, Button, Grid, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography } from '@mui/material';
-import React from 'react';
-import { Container, Navbar } from 'react-bootstrap';
-import { NavLink } from 'react-router-dom';
-import useAuth from '../../Hooks/useAuth';
-
-import MenuIcon from '@mui/icons-material/Menu';
-import Avatar from '@mui/material/Avatar';
-import { hover } from '@testing-library/user-event/dist/hover';
-
-
-import { red } from '@mui/material/colors';
-
+import React from "react";
+import { NavLink } from "react-router-dom";
+import useAuth from "../../Hooks/useAuth";
+import TopNave from "../Shared/TopNave";
+import "./Hedder.css";
 
 const Header = () => {
+  const { user, logOut } = useAuth();
+  return (
+    <>
+      <TopNave></TopNave>
+      <div>
+        <div class="navbar bg-[#FFFFFF] p-3">
+          <div class="navbar-start ">
+            <div class="dropdown">
+              <label tabindex="0" class="btn btn-ghost lg:hidden ">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  class="h-5 w-5"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 6h16M4 12h8m-8 6h16"
+                  />
+                </svg>
+              </label>
+              <ul
+                tabindex="0"
+                class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-[#FFFFFF] rounded-box w-52 "
+              >
+                <li>
+                  <button>
+                    <NavLink to="/home">HOME</NavLink>
+                  </button>
+                </li>
+                <li>
+                  <NavLink to="/about">ABOUT</NavLink>
+                </li>
+                <li tabindex="0">
+                  <a class="justify-between">
+                    DESHBOARD
+                    <svg
+                      class="fill-current"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
+                    </svg>
+                  </a>
+                  <ul class="p-0">
+                    <li>
+                      <i class="fa-solid fa-magnifying-glass"></i>
+                      <button class="btn btn-warning">
+                        <NavLink to="/mybooking">MY BOOKING</NavLink>
+                      </button>
+                    </li>
+                    <li>
+                      <NavLink to="/allbooking">ALL BOOKING</NavLink>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <NavLink to="/place">ADD PLACE</NavLink>
+                </li>
+              </ul>
+            </div>
+            <NavLink to="/home" class="btn btn-ghost normal-case  ">
+              <p class="md:text-3xl font-bold text-gray-900">
+                PASSAGE <span class="text-amber-300">TO</span> PEACE
+              </p>
+            </NavLink>
 
-    const color = red[500];
+            <div class="navbar-center hidden lg:flex mx-5 md:text-base font-bold ">
+              <ul class="menu menu-horizontal ">
+                <li class="licolor">
+                  <button class="hover-underline-animation">
+                    <NavLink to="/home">HOME</NavLink>
+                  </button>
+                </li>
+                <li>
+                  <button class="hover-underline-animation">
+                    <NavLink to="/about">ABOUT</NavLink>
+                  </button>
+                </li>
+                <li tabindex="0" class="dropdown flex">
+                  <a class="hover-underline-animation">
+                    DESHBOARD
+                    <svg
+                      class="fill-current "
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
+                    </svg>
+                  </a>
 
+                  <ul class="p-0 menu menu-compact dropdown-content mt-0 shadow rounded-box w-52 bg-[#ffffff] mt-4">
+                    <li>
+                      <NavLink to="/mybooking">MY BOOKING</NavLink>
+                    </li>
+                    <li>
+                      <NavLink to="/allbooking">ALL BOOKING</NavLink>
+                    </li>
+                  </ul>
+                </li>
 
-    const [anchorElNav, setAnchorElNav] = React.useState(null);
-    const [anchorElUser, setAnchorElUser] = React.useState(null);
-    const handleOpenNavMenu = (event) => {
-        setAnchorElNav(event.currentTarget);
-    };
-    const handleOpenUserMenu = (event) => {
-        setAnchorElUser(event.currentTarget);
-    };
+                <li>
+                  <button class="hover-underline-animation">
+                    <NavLink to="/place">ADD PLACE</NavLink>
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
 
-    const handleCloseNavMenu = () => {
-        setAnchorElNav(null);
-    };
+          <div class="navbar-end">
+            {user.email ? (
+              <>
+                <div class="sm:invisible md:visible">
+                  <span class="mx-10" style={{ color: "gray" }}>
+                    Hello {user.displayName}
+                  </span>
+                </div>
+                <div class="dropdown dropdown-end ">
+                  {user.email ? (
+                    <label tabindex="0" class="btn btn-ghost btn-circle avatar">
+                      <div class="w-10 rounded-full">
+                        {user.photoURL ? <img src={user.photoURL} /> : <></>}
+                      </div>
+                    </label>
+                  ) : (
+                    <></>
+                  )}
+                  <ul
+                    tabindex="0"
+                    class="menu menu-compact dropdown-content  shadow bg-base-ffc107 rounded-box w-52 bg-[#ffffff] mt-4"
+                  >
+                    <li>
+                      {user.email ? (
+                        <>
+                          <div>
+                            <NavLink to="/mybooking">My Bookings</NavLink>
+                          </div>
 
-    const handleCloseUserMenu = () => {
-        setAnchorElUser(null);
-    };
-    const { user, logOut } = useAuth();
-    return (
-        <>
-            {/* <div>
-
-
-                <Navbar bg="dark" variant="dark">
-
-                    <Container >
-                        <Navbar.Brand href="#home">Navbar</Navbar.Brand>
-
-
-                        <NavLink to="/home">Home</NavLink>
-                        <NavLink to="/about">About</NavLink>
-
-                        <NavLink to="/mybooking">MyBooking</NavLink>
-                        <NavLink to="/allbooking">AllBooking</NavLink>
-                        <NavLink to="/place">AddPlace</NavLink>
-
-
-
-                        <Navbar.Text>
-                            {
-                                user?.email && <span className='mt-1' style={{ color: 'white' }}>Hello {user.displayName}</span>
-                            }
-                        </Navbar.Text>
-
-
-
-                        {
-                            user.email ?
-                                <div className='d-flex justify-content-center'>
-                                    <div> <Button onClick={logOut} color="error" variant="contained">Log Out</Button></div>
-                                    <div>
-                                        <img src={user.photoURL} className='rounded-circle border border-1 login-img-style ' alt="" />
-                                    </div>
-                                </div>
-                                :
-                                <NavLink to="/login">Log in</NavLink >
-                        }
-
-                    </Container>
-
-
-                </Navbar>
-
-
-
-            </div> */}
-
-
-
-            <AppBar position="static" sx={{ backgroundColor: "#242F9B" }}>
-                <Container maxWidth="xl" >
-                    <Toolbar disableGutters>
-                        {/* <img src={logo} alt="" style={{ height: '50px', weith: '200px', margin: '10px', marginRight: '50px' }} sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}
-                        /> */}
-                        <Typography
-                            variant="h6"
-                            noWrap
-                            component="a"
-                            href="/"
-                            sx={{
-                                mr: 2,
-                                display: { xs: 'none', md: 'flex' },
-                                fontFamily: 'monospace',
-                                fontWeight: 700,
-                                letterSpacing: '.3rem',
-                                color: 'inherit',
-                                textDecoration: 'none',
-                            }}
-                        >
-                            PASSAGE TO PEACE
-                        </Typography>
-
-                        <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-                            <IconButton
-                                size="large"
-                                aria-label="account of current user"
-                                aria-controls="menu-appbar"
-                                aria-haspopup="true"
-                                onClick={handleOpenNavMenu}
-                                color="inherit"
+                          <div>
+                            <button
+                              onClick={logOut}
+                              className="btn btn-xs sm:btn-sm md:btn-md  btn-warning text-red-700"
                             >
-                                <MenuIcon />
-                            </IconButton>
-                            <Menu
-                                id="menu-appbar"
-                                anchorEl={anchorElNav}
-                                anchorOrigin={{
-                                    vertical: 'bottom',
-                                    horizontal: 'left',
-                                }}
-                                keepMounted
-                                transformOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'left',
-                                }}
-                                open={Boolean(anchorElNav)}
-                                onClose={handleCloseNavMenu}
-                                sx={{
-                                    display: { xs: 'block', md: 'none' },
-                                }}
-                            >
-                                {
-                                    <MenuItem onClick={handleCloseNavMenu}>
-                                        <Typography textAlign="center">
-
-                                            <div >
-                                                <NavLink to="/home">Home</NavLink>
-                                            </div>
-
-                                            <div>
-                                                <NavLink to="/about">About</NavLink>
-                                            </div>
-
-                                            <div>
-                                                <NavLink to="/allbooking">All Bookings</NavLink>
-                                            </div>
-                                            <div>
-                                                <NavLink to="/place">AddPlace</NavLink>
-                                            </div>
-                                        </Typography>
-                                    </MenuItem>
-                                }
-                            </Menu>
-                        </Box>
-                        {/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />  */}
-
-                        <Typography
-                            variant="h5"
-                            noWrap
-                            component=""
-                            href=""
-
-                            sx={{
-                                mr: 2,
-                                display: { xs: 'flex', md: 'none' },
-                                flexGrow: 1,
-                                fontFamily: 'monospace',
-                                fontWeight: 700,
-                                letterSpacing: '.3rem',
-                                color: 'inherit',
-                                textDecoration: 'none',
-                            }}
-                        >
-                            PASSAGE TO PEACE
-
-                        </Typography>
-
-                        <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, }}>
-
-                            {
-                                <Button
-
-                                    onClick={handleCloseNavMenu}
-                                    sx={{ my: 2, display: 'block', padding: '1px', backgroundColor: "white", margin: '20px' }}
-                                >
-                                    <NavLink to="/home" >Home</NavLink>
-
-                                </Button>
-
-                            }
-                            {
-                                <Button
-                                    onClick={handleCloseNavMenu}
-                                    sx={{ my: 2, display: 'block', padding: '5px', color: 'text.primary', backgroundColor: "white", margin: '20px' }}
-                                >
-                                    <NavLink to="/about">About</NavLink>
-                                </Button>
-                            }
-                            {
-                                <Button
-                                    onClick={handleCloseNavMenu}
-                                    sx={{ my: 2, display: 'block', padding: '5px', color: 'text.primary', backgroundColor: "white", margin: '20px' }}
-                                >
-                                    <NavLink to="/mybooking">MyBooking</NavLink>
-                                </Button>
-                            }
-                            {
-                                <Button
-                                    onClick={handleCloseNavMenu}
-                                    sx={{ my: 2, display: 'block', padding: '5px', color: 'text.primary', backgroundColor: "white", margin: '20px' }}
-                                >
-                                    <NavLink to="/allbooking">AllBooking</NavLink>
-                                </Button>
-                            }
-                            {
-                                <Button
-                                    onClick={handleCloseNavMenu}
-                                    sx={{ my: 2, display: 'block', padding: '5px', color: 'text.primary', backgroundColor: "white", margin: '20px' }}
-                                >
-                                    <NavLink to="/place">AddPlace</NavLink>
-                                </Button>
-                            }
-
-                            <div className='d-flex justify-content-end'>
-                                <Navbar.Text className='d-flex align-items-center'>
-                                    {
-                                        user?.email && <span className='mt-1' style={{ color: 'white' }}>Hello {user.displayName}</span>
-                                    }
-                                </Navbar.Text>
-                            </div>
-
-
-                        </Box>
-
-                        <Box sx={{ flexGrow: 0 }}>
-                            <Tooltip title="Profile">
-                                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                    <Avatar alt="Remy Sharp" src={user.photoURL} />
-                                </IconButton>
-                            </Tooltip>
-                            <Menu
-                                sx={{ mt: '45px' }}
-                                id="menu-appbar"
-                                anchorEl={anchorElUser}
-                                anchorOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                keepMounted
-                                transformOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                open={Boolean(anchorElUser)}
-                                onClose={handleCloseUserMenu}
-                            >
-                                {
-                                    <MenuItem onClick={handleCloseUserMenu}>
-                                        <Typography textAlign="center">
-
-                                            {
-                                                user.email ?
-
-                                                    <>
-                                                        <div>
-                                                            <NavLink to="/mybooking" >My Bookings</NavLink>
-                                                        </div>
-
-                                                        <div>
-                                                            <Button onClick={logOut} color="error" variant="contained">Log Out</Button>
-                                                        </div>
-                                                    </> :
-
-                                                    <>
-
-                                                        <NavLink to="/login"><Button onClick={logOut} color="success" variant="contained">Log In</Button></NavLink ></>
-                                            }
-
-                                        </Typography>
-                                    </MenuItem>
-                                }
-                            </Menu>
-                        </Box>
-                    </Toolbar>
-                </Container>
-            </AppBar>
-
-
-
-        </>
-    );
-
+                              Log Out
+                            </button>
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <NavLink to="/login">
+                            <button color="success" variant="contained">
+                              Log In
+                            </button>
+                          </NavLink>
+                        </>
+                      )}
+                    </li>
+                  </ul>
+                </div>
+              </>
+            ) : (
+              <NavLink to="/login">
+                <button class="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-warning">
+                  Log in
+                </button>
+              </NavLink>
+            )}
+          </div>
+        </div>
+      </div>
+    </>
+  );
 };
-
 
 export default Header;
