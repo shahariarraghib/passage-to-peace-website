@@ -1,3 +1,23 @@
+
+Project Live preivew link ► https://passage-to-peace.firebaseapp.com/
+
+The Package uses in this project:
+
+hiroku cloud application platform\
+React Material Ui\
+React Router\
+Firebase Authentication and hosting\
+Emotion core\
+Material UI carousel\
+@mui/lab
+
+Service demo video►
+
+https://user-images.githubusercontent.com/58640846/169889609-ec9d882c-b8eb-48d9-bc0d-8b38f4cb3994.mp4
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
